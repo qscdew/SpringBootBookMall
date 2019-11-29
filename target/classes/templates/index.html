@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>云阅读</title>
+
+    <!-- Required meta tags -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <nav class="navbar navbar-expand-lg navbar-dark text-white">
+        <a class="navbar-brand" href="#">商城</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/all}">商品大全</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/category}">分类</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/allorder}">您的书库</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/loginHtml}">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/registerpage}">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user!=null}" th:href="@{/myhome}">你好，<td th:text="${user}">Onions</td></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user=='admin'}" th:href="@{/admin}">后台</a>
+                </li>
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+</head>
+
+<body background="images/bg1.jpg" style="
+background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;">
+
+<div class="container" style="opacity:0.95">
+    <div class="jumbotron" >
+
+        <div class="row">
+            <div class="col-sm">
+                <div class="bd-example">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" style="height:500px;">
+                                <img th:src="'/images/'+${hello.get(0).getID()}+'.jpg'" class="d-block w-100" alt="">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h3><a href="#" class="text-white bg-dark">《<td th:text="${hello.get(0).getTitle()}"></td>》</a></h3>
+                                    <p><a href="#" class="text-white bg-dark"><td th:text="${hello.get(0).getAuthor()}"></td>></a>></p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" style="height:500px;">
+                                <img th:src="'/images/'+${hello.get(1).getID()}+'.jpg'"  class="d-block w-100" alt="">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h3><a href="#" class="text-white bg-dark">《<td th:text="${hello.get(1).getTitle()}"></td>》</a></h3>
+                                    <p><a href="#" class="text-white bg-dark"><td th:text="${hello.get(1).getAuthor()}"></td>></a>></p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" style="height:500px;">
+                                <img th:src="'/images/'+${hello.get(2).getID()}+'.jpg'"  class="d-block w-100" alt="">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h3><a href="#" class="text-white bg-dark">《<td th:text="${hello.get(2).getTitle()}"></td>》</a></h3>
+                                    <p><a href="#" class="text-white bg-dark"><td th:text="${hello.get(2).getAuthor()}"></td>></a>></p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm">
+                <br><br><br>
+                <h1>您好！</h1>
+                <br>
+                <h3>欢迎来到云阅读。</h3>
+                <br><br><br><br><br><br><br><br><br>
+                <h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;——云阅读</h5>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

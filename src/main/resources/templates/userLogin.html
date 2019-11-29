@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <nav class="navbar navbar-expand-lg navbar-dark text-white">
+        <a class="navbar-brand" href="#">商城</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/all}">商品大全</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/category}">分类</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/allorder}">您的书库</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/loginHtml}">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/registerpage}">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user!=null}" th:href="@{/myhome}">你好，<td th:text="${user}">Onions</td></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user=='admin'}" th:href="@{/admin}">后台</a>
+                </li>
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+</head>
+
+
+<body style="background: url(/images/bg2.jpg);background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;">
+
+<div class="container">
+    <div class="jumbotron">
+
+        <div class="row">
+            <div class="col-sm">
+
+            </div>
+            <div class="col-sm">
+                <form action="/user/userLogin" method="post">
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">用户名</label>
+                        <input type="text" class="form-control" name="username"id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="username">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input type="password" class="form-control" name="password" id="exampleInputPassword1" placeholder="Password">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">登录</button>
+
+
+                </form>
+            </div>
+            <div class="col-sm">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>分类</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <nav class="navbar navbar-expand-lg navbar-dark text-white">
+        <a class="navbar-brand" href="#">商城</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/all}">商品大全</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/category}">分类</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/allorder}">您的书库</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/loginHtml}">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/registerpage}">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user!=null}" th:href="@{/myhome}">你好，<td th:text="${user}">Onions</td></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user=='admin'}" th:href="@{/admin}">后台</a>
+                </li>
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+</head>
+
+
+<body background="images/bg1.jpg" style="
+background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;">
+
+<div class="container">
+    <div class="jumbotron">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">类别</li>
+                <tr th:each="type : ${types}">
+                    <li class="breadcrumb-item"><a th:href="@{/cate?id={id}(id=${type.getType()})}"><td th:text="${type.getType()}">Onions</td></a></li>
+                </tr>
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+
+
+                <li class="breadcrumb-item active">出版社</li>
+                <tr th:each="p : ${press}">
+                    <li class="breadcrumb-item"><a th:href="@{/catepress?id={id}(id=${p.getID()})}"><td th:text="${p.getPress()}">Onions</td></a></li>
+                </tr>
+
+
+            </ol>
+        </nav>
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+
+                <li class="breadcrumb-item active">作者</li>
+                <tr th:each="a : ${authors}">
+                    <li class="breadcrumb-item"><a th:href="@{/cateau?au={au}(au=${a.getID()})}"><td th:text="${a.getAuthor()}">Onions</td></a></li>
+                </tr>
+
+            </ol>
+        </nav>
+
+
+
+
+
+</div>
+</div>
+
+
+
+</body>
+</html>

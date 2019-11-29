@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>全部商品页面</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <nav class="navbar navbar-expand-lg navbar-dark text-white">
+        <a class="navbar-brand" href="#">商城</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/all}">商品大全</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/category}">分类</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/allorder}">您的书库</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/loginHtml}">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/registerpage}">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user!=null}" th:href="@{/myhome}">你好，<td th:text="${user}">Onions</td></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user=='admin'}" th:href="@{/admin}">后台</a>
+                </li>
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+</head>
+
+
+<body background="images/bg1.jpg" style="
+background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;">
+
+<div class="container">
+    <div class="jumbotron">
+
+        <div class="row">
+            <tr th:each="prod : ${hello}">
+            <div class="col-6">
+
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <img th:src="'/images/'+${prod.getID()}+'.jpg'" class="card-img" alt="">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">《<td th:text="${prod.getTitle()}">Onions</td>》</h5>
+                                    <p class="card-text"><td th:text="${prod.getBrief().substring(0,60)}">Onions</td>......</p>
+                                    <p class="card-text"><small class="text-muted"><td th:text="${prod.Price()}">Onions</td>元</small></p>
+                                    <a  th:href="@{/detail?id={id}(id=${prod.getID()})}" class="btn btn-primary">详情</a>
+                                    <a  th:href="@{/buy?id={id}(id=${prod.getID()})}" class="btn btn-primary">购买</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+            </div> </tr>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

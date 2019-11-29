@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>商品详情</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <nav class="navbar navbar-expand-lg navbar-dark text-white">
+        <a class="navbar-brand" href="#">商城</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/}">首页 <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/all}">商品大全</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/category}">分类</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/allorder}">您的书库</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/loginHtml}">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user==null}" th:href="@{/user/registerpage}">注册</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user!=null}" th:href="@{/myhome}">你好，<td th:text="${user}">Onions</td></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user=='admin'}" th:href="@{/admin}">后台</a>
+                </li>
+
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/search" method="post">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="text" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">搜索</button>
+            </form>
+        </div>
+    </nav>
+</head>
+<body background="images/bg1.jpg" style="
+background-repeat:no-repeat ;
+background-size:100% 100%;
+background-attachment: fixed;">
+<div class="container">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col"><img th:src="'/images/'+${book.getID()}+'.jpg'" width="280px" />
+            </div>
+            <div class="col"><h1>《<td th:text="${book.getTitle()}">LieRabbit</td>》</h1>
+                <br><br>
+                <p>作者： <td th:text="${book.getAuthor()}">LieRabbit</td></p>
+                <p>国别：<td th:text="${book.getNation()}">LieRabbit</td></p>
+                <p>类型:<td th:text="${book.getType()}">LieRabbit</td></p>
+                <p>出版社：<td th:text="${book.getPress()}">LieRabbit</td></p>
+                <p>页数：<td th:text="${book.getPages()}">LieRabbit</td></p>
+            </div>
+            <div class="w-100"></div>
+
+            <nav id="navbar-example2" class="navbar navbar-light ">
+                <a class="navbar-brand" href="#"><h2>详情页面</h2></a>
+                <ul class="nav nav-pills pull-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#brief">简介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comment">留言</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#say">评论</a>
+                    </li>
+                </ul>
+            </nav>
+            <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+                <h4 id="brief">简介</h4>
+                <p><div class="col"><p th:text="${book.getBrief()}">LieRabbit</p></div></p>
+            <h4 id="comment">留言</h4>
+            <p>
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">用户</th>
+                        <th scope="col"> </th>
+                        <th scope="col">评论</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="prod : ${message}">
+                        <th scope="row"><td th:text="${prod.getmusername()}">Onions</td></th>
+                        <td><td th:text="${prod.gettext()}">Onions</td></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            </p>
+            <h4 id="say">评论</h4>
+            <p>
+            <div class="col">
+                <form action="/addmessage" method="post">
+
+
+                    <div class="form-group">
+                        <center><label for="disabledTextInput">本书ID：</label></center>
+                        <input type="text" id="disabledTextInput" name ="bookid" th:value="${book.getID()}"
+                               class="form-control" th:placeholder="${book.getID()}" >
+                    </div>
+
+
+                    <div class="form-group">
+                        <center><label for="exampleFormControlTextarea1">评论内容：</label></center>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="text" rows="3"></textarea>
+                    </div>
+
+                    <center> <button type="submit" class="btn btn-primary">提交</button></center>
+                </form>
+            </div>
+            </p>
+
+        </div>
+
+        <!--        <div class="col">Column</div>-->
+
+        <div class="w-100"></div>
+
+    </div>
+</div>
+</div>
+
+</body>
+</html>
